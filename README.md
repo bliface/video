@@ -19,7 +19,7 @@ AI: 以人工智能为特色提供有趣的内容
 
 </br>
 
-**推荐：在移动端用google chorme浏览器输入babyhard.com即可**
+**推荐：在移动端用google chrome浏览器输入babyhard.com即可**
 
 
 **ss source code hash:** 0x5cf4C6eE0d1F6F9337AB89A79F1885C748b8beE1
