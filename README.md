@@ -1,10 +1,3 @@
-<div align="center">
-    <img src="https://github.com/babyhard/video/raw/master/static/image/logo-45.png" width="45" height="45">    
-</div>
-<div align="center" style="color:#0099ff">BABYHARD</div>
-<div align="center">全球首个IPFS成人视频分享平台</div>
-</br>
-</br>
 
 **ETH + IPFS + AI**
 
