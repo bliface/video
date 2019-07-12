@@ -16,8 +16,8 @@ AI: 以人工智能为特色提供有趣的内容
 
 纯区块链DAPP无服务器，去中心，跨国界，抗审核
 ，匿名，免费， 无需安装，全平台通用
-
-</br>
+  
+  
 
 **推荐：在移动端用google chrome浏览器输入babyhard.com即可**
 
@@ -28,14 +28,14 @@ AI: 以人工智能为特色提供有趣的内容
 
 **website ipns**:
 QmYFwgN1uW1yT3ELpcq1NuBMegooAp6TeXCC4Bqr7WjGpV
-
-
+  
+  
 **如果您不关心数字货币以下请忽略**
 
 </br>
 
-<font color=#0099ff size=6> SEASHELLS . 白皮书</font>
-</br>
+### SEASHELLS . 白皮书
+---
 
 #### 1 前言
 
