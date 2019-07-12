@@ -3,7 +3,9 @@
 </div>
 <div align="center">全球首个IPFS成人视频分享平台</div>
 </br>
+
 **推荐：在移动端用google chrome浏览器输入babyhard.com即可**
+
 **ETH + IPFS + AI**
 
 ETH: 软件逻辑用以太坊智能合约实现
