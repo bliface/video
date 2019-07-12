@@ -1,4 +1,9 @@
-
+<div align="center">
+    <img src="https://github.com/babyhard/video/raw/master/static/image/logo-45.png" width="45" height="45">    
+</div>
+<div align="center">全球首个IPFS成人视频分享平台</div>
+</br>
+**推荐：在移动端用google chrome浏览器输入babyhard.com即可**
 **ETH + IPFS + AI**
 
 ETH: 软件逻辑用以太坊智能合约实现
@@ -9,11 +14,6 @@ AI: 以人工智能为特色提供有趣的内容
 
 纯区块链DAPP无服务器，去中心，跨国界，抗审核
 ，匿名，免费， 无需安装，全平台通用
-  
-  
-
-**推荐：在移动端用google chrome浏览器输入babyhard.com即可**
-
 
 **ss source code:** 0x5cf4C6eE0d1F6F9337AB89A79F1885C748b8beE1
 
