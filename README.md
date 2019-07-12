@@ -3,7 +3,7 @@
 </div>
 <div align="center">全球首个IPFS成人视频分享平台</div>
 
-**推荐：在移动端用google chrome浏览器**
+**推荐:在移动端用google chrome浏览器**
 
 **ETH + IPFS + AI**
 
