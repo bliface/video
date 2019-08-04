@@ -18,7 +18,7 @@ AI: 以人工智能实现换脸换装让内容更有趣
 
 **ss source code:** 0x5cf4C6eE0d1F6F9337AB89A79F1885C748b8beE1
 
-**official website**: https://babyhard.com
+**official website**: https://bliface.com
 
 **website ipns**:
 QmYFwgN1uW1yT3ELpcq1NuBMegooAp6TeXCC4Bqr7WjGpV
@@ -91,8 +91,8 @@ SS的持币者同样会获得后续产品的测试和先入权利
 
 *由于交易需要打包成区块 根据网络状况需等待约20秒时间
 
-#### 9 Babyhard
-babyhard.com是自由区的又一力作，以SS为通行证，提供基于以太坊+IPFS的去中心化成人视频分享平台。匿名，去中心，抗审查，数据及用户信息存储在以太坊，视频文件及网站部署在IPFS上。整个DAPP做到完全静态，任何人都可以将网站源码部署到自己的服务器上，官方甚至可以没有服务器。用户可以通传统域名访问也可以通过任意网关的IPNS访问，甚至可以通github提供的静态网站访问。这将有效对抗不同区域的法规，虽然是静态不代表没有互动，任何人都可以上传视频，回复或点赞。由于以太坊MetaMask的原因，暂不支持IE系浏览器。推荐在移动端使用google chrome系浏览器。在未加入收费机制前，为减少成本视频数据的智能合约部署在以太坊Rinkeby网络中，上传文件和用户互动所产生的gas由项目方支出，对用户完全免费
+#### 9 BliFace
+bliface.com是自由区的又一力作，以SS为通行证，提供基于以太坊+IPFS的去中心化成人视频分享平台。匿名，去中心，抗审查，数据及用户信息存储在以太坊，视频文件及网站部署在IPFS上。整个DAPP做到完全静态，任何人都可以将网站源码部署到自己的服务器上，官方甚至可以没有服务器。用户可以通传统域名访问也可以通过任意网关的IPNS访问，甚至可以通github提供的静态网站访问。这将有效对抗不同区域的法规，虽然是静态不代表没有互动，任何人都可以上传视频，回复或点赞。由于以太坊MetaMask的原因，暂不支持IE系浏览器。推荐在移动端使用google chrome系浏览器。在未加入收费机制前，为减少成本视频数据的智能合约部署在以太坊Rinkeby网络中，上传文件和用户互动所产生的gas由项目方支出，对用户完全免费
 
 </br>
 
@@ -151,5 +151,5 @@ ENS :  Ethereum Name Service
 DNS :  Domain Name Service
 
 
-@ https://babyhard.com
+@ https://bliface.com
 
