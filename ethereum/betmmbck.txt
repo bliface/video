@@ -1,0 +1,574 @@
+
+<template>
+  <div style="padding:20px;" id="betMM">
+    <div id="show">
+      <span>随机数: {{this.ETHNonce}}   区块：{{this.curBlock}}</span>
+      <span style="margin-left: 19px">期号: {{this.validSchedule}}  状态: {{this.scheduleStatus}}</span>
+      <div>
+        <span style="margin-left: 19px" >数1: <span v-if="this.validSchedule!=0">{{this.nonce1}}</span></span>
+        <span style="margin-left: 19px" >数2: <span v-if="this.validSchedule!=0">{{this.nonce2}}</span></span>
+        <span style="margin-left: 19px" >数3: <span v-if="this.validSchedule!=0">{{this.nonce3}}</span></span>
+      </div>
+      <div style="text-align: left; width: 100%">提示信息：{{this.showLog}}</div>
+    </div>
+    <div class="baseClass"><input type="text" placeholder="input test string" style="width:100%" v-model="inputStr"/></div>
+    <div style="width:190px">{{this.myAddress}}</div>
+
+    <div class="baseClass">
+      <button class="button" @click="onclickBetMin">betMin</button>
+      <button class="button" @click="onclickBetMax">betMax</button>
+    </div>
+    <div style="width: 100%">
+      <span style="margin-left: 19px" >数1: <span v-if="this.validSchedule!=0">{{this.nonce1}}</span></span>
+      <span style="margin-left: 19px" >数2: <span style="margin-left: 19px" v-if="this.validSchedule!=0"><revolve ref="revolve_nonce2">{{this.nonce2}}</revolve></span></span>
+      <span style="margin-left: 19px" >数3: <span style="margin-left: 19px" v-if="this.validSchedule!=0"><revolve ref="revolve_nonce3">{{this.nonce3}}</revolve></span></span>
+    </div>
+
+    <v-table
+      style="width:100%"
+      is-horizontal-resize
+      :columns="columns"
+      :table-data="bets"
+      :row-click="rowClick"
+      :column-cell-class-name="columnCellClass"
+      :show-vertical-border="false"
+    ></v-table>
+
+    <v-table
+      style="width:100%; margin-top: 9px"
+      is-horizontal-resize
+      :columns="ScheduleColumns"
+      :table-data="Schedules"
+      :show-vertical-border="false"
+    ></v-table>
+
+    <div class="baseClass">
+      <button class="button" @click="onclickStopTimer">stopTimer</button>
+      <button class="button" @click="onclickSetCFO">setCFO</button>
+      <button class="button" @click="onclickGetCFO">getCFO</button>
+      <button class="button" @click="onclickGetBetByIndex">getbet</button>
+      <button class="button" @click="onclickGetScheduleByIndex">getSchedul</button>
+      <button class="button" @click="onclickDispatch">Dispatch</button>
+      <button class="button" @click="onclickCreateScheduleWinner">createScheduleWinner</button>
+      <button class="button" @click="onclickGetContractAddr">getCAddr</button>
+      <button class="button" @click="onclickCreateSchedule">CreateSchedule</button>
+      <button class="button" @click="createBet">Createbet</button>
+    </div>
+  </div>
+</template>
+
+<script>
+// import FB {createBet, createScheduleWinner, getScheduleByIndex, setCFO, getCFO, getMyBet, getBetByIndex, FreeRegion} from '../js/FreeRegion.js'
+import FR from '../js/FreeRegion.js'
+import revolve from './revolve'
+export default {
+  name: 'betMM',
+  components: {revolve},
+  data () {
+    return {
+      showtext: '',
+      inputStr: '',
+      myAddress: '',
+      showLog: '',
+      validSchedule: 0,
+      scheduleStatus: '',
+      nonce1: '',
+      nonce2: '',
+      nonce3: '',
+      curBlock: 0,
+      ETHNonce: 0,
+      isPending: false,
+      settlementStart: false,
+      betMin: 10001, // 压小
+      betMax: 10002, // 压大
+      betAmount: 2, // 投注金额默认为2
+      // bet: {'schedule': '', 'betOn': '', 'amount': '', 'winA': '', 'isget': '', 'petTime': ''},
+      bets: [
+        {'id': 'id', 'addr': '地址', 'schedule': '李磊', 'betOn': '25', 'amount': '2', 'winA': '0', 'isget': 'false'},
+        {'id': 'id', 'addr': '地址', 'schedule': '李磊2', 'betOn': '252', 'amount': '32', 'winA': '0', 'isget': 'false'}
+      ],
+      columns: [
+        {field: 'schedule', title: '期号', titleAlign: 'center', columnAlign: 'center', width: 37, isResize: true},
+        {field: 'betOn', title: '投注', titleAlign: 'center', columnAlign: 'center', titleCellClassName: 'column_cell', width: 70, isResize: true},
+        {field: 'amount', title: '金额', titleAlign: 'center', columnAlign: 'center', width: 37, isResize: true},
+        {field: 'winA', title: '收入', titleAlign: 'center', columnAlign: 'center', width: 37, isResize: true},
+        {field: 'isget', title: '领取', titleAlign: 'center', columnAlign: 'center', width: 37, isResize: true}
+      ],
+      Schedules: [{'schedule': '2', 'nonce1': '0', 'nonce2': '1', 'nonce3': '2', 'winOn': '252'}],
+      ScheduleColumns: [
+        {field: 'schedule', title: '期号', titleAlign: 'center', columnAlign: 'center', width: 37, isResize: true},
+        {field: 'nonce1', title: '个位', titleAlign: 'center', columnAlign: 'center', width: 37, isResize: true},
+        {field: 'nonce2', title: '十位', titleAlign: 'center', columnAlign: 'center', width: 37, isResize: true},
+        {field: 'nonce3', title: '百位', titleAlign: 'center', columnAlign: 'center', width: 37, isResize: true},
+        {field: 'winOn', title: '开奖', titleAlign: 'center', columnAlign: 'center', width: 37, isResize: true}
+      ]
+    }
+  },
+  // 钩子函数 组件加载时执行
+  created () {
+    this.betAmount = 2 // 投注金额默认为2
+    this.showtext = this.showtext + this.validSchedule.toString()
+    var _this = this
+
+    // 页面加载时获取默认数量和地址的投注
+    var _myadress = '0xeaa5411691c8588368fed58443b28592dafba902'
+    var _getBetQty = 9
+    if (this.myAddress !== '') {
+      _myadress = this.myAddress
+    }
+
+    for (var i = _getBetQty; i > 0; i--) {
+      var ss = FR.getMyBet(_myadress, i)
+      if (ss[0].toString() !== '0') {
+        this.bets.unshift({
+          'id': ss[0].toString(),
+          'addr': ss[1].toString(),
+          'schedule': ss[2].toString(),
+          'betOn': ss[3].toString(),
+          'amount': ss[4].toString(),
+          'winA': ss[5].toString(),
+          'isget': ss[6]
+        })
+      }
+    }
+
+    // 界面加载时 默认显示指定数量的历史期
+    var _getCount = 7
+
+    for (var i2 = _getCount; i2 > 0; i2--) {
+      var ss2 = FR.getMySchedule(i2)
+      if (ss2[0].toString() !== '0') {
+        this.Schedules.unshift({
+          'schedule': ss2[0].toString(),
+          'nonce1': ss2[1].toString(),
+          'nonce2': ss2[2].toString(),
+          'nonce3': ss2[3].toString(),
+          'winOn': ss2[4].toString()
+        })
+      }
+    }
+
+    var eventGetMyBet = FR.FreeRegion.event_myBet()
+    eventGetMyBet.watch(function (error, result) {
+      if (!error) {
+        console.log(result)
+        var res0 = result.args.id.toString()
+        var res1 = result.args.addr.toString()
+        var res2 = result.args.schedule.toString()
+        var res3 = result.args.betOn.toString()
+        var res4 = result.args.amount.toString()
+        var res5 = result.args.winAmount.toString()
+        var res6 = result.args.isget.toString()
+        // var stringTime = _this.global.getFormatDate(res5, 'yyyy-MM-dd hh:mm:ss')
+        _this.bets.unshift({'id': res0, 'addr': res1, 'schedule': res2, 'betOn': res3, 'amount': res4, 'winA': res5, 'isget': res6})
+      } else {
+        alert('ERROR: ' + error)
+      }
+    })
+
+    var watchCreateSchedule = FR.FreeRegion.event_createSchedule()
+    watchCreateSchedule.watch(function (error, result) {
+      _this.isPending = false
+      _this.settlementStart = false
+      _this.nonce2 = ''
+      _this.nonce3 = ''
+      if (!error) {
+        var res1 = parseInt(result.args.schedule)
+        // var res2string = res2.toString()
+        // var ss = res2string.substring(res2string.length - 1, res2string.length)
+        console.log('event_created: ' + res1 + ' pending: ' + _this.isPending.toString() + ' SSt: ' + _this.settlementStart)
+      } else {
+        alert('err: ' + error)
+      }
+    })
+
+    var watchGetSchedule = FR.FreeRegion.event_getSchedule()
+    watchGetSchedule.watch(function (error, result) {
+      if (!error) {
+        console.log(result)
+        var res1 = result.args.schedule.toString()
+        var res2 = result.args.Nonce1.toString()
+        var res3 = result.args.Nonce2.toString()
+        var res4 = result.args.Nonce3.toString()
+        var res5 = result.args.WinOn.toString()
+        // var stringTime = _this.global.getFormatDate(res5, 'yyyy-MM-dd hh:mm:ss')
+        _this.Schedules.unshift({'schedule': res1, 'nonce1': res2, 'nonce2': res3, 'nonce3': res4, 'winOn': res5})
+      } else {
+        alert('ERROR: ' + error)
+      }
+    })
+
+    // 开始结算 并产生下一期
+    var watchsettlementStart = FR.FreeRegion.event_settlementStart()
+    watchsettlementStart.watch(function (error, result) {
+      if (!error) {
+        _this.settlementStart = true
+        console.log('event_settlementStart: ' + _this.settlementStart)
+      } else {
+        alert('err: ' + error)
+      }
+    })
+
+    var watchCreateScheduleWinner = FR.FreeRegion.event_createScheduleWinner()
+    watchCreateScheduleWinner.watch(function (error, result) {
+      if (!error) {
+        var res1 = parseInt(result.args.schedule)
+        console.log('event_CreateScheduleWinner: ' + res1)
+      } else {
+        alert('err: ' + error)
+      }
+    })
+
+    var watchDispatch = FR.FreeRegion.event_dispatch()
+    watchDispatch.watch(function (error, result) {
+      if (!error) {
+        var res0 = result.args.id
+        var res2 = result.args.schedule.toString()
+        var res3 = result.args.betOn.toString()
+        var res4 = result.args.amount.toString()
+        var res6 = result.args.winAmount.toString()
+        var res7 = result.args.isget.toString()
+        console.log('event_Dispatch: ' + res0 + ' sch: ' + res2 + ' betOn: ' + res3 + ' amount: ' + res4 + ' winA: ' + res6 + res7)
+        for (var i = 0; i < _this.bets.length; i++) {
+          if (_this.bets[i].id === res0 && _this.bets[i].schedule === res2) {
+            _this.bets[i].winA = res6
+          }
+        }
+      } else {
+        alert('err: ' + error)
+      }
+    })
+
+    // 每10秒重复执行getTime
+    this.timer = setInterval(() => {
+      var ss = this.getTime()
+      this.validSchedule = ss[0].toString()
+      this.curBlock = ss[1].toString()
+      this.scheduleStatus = ss[2]
+    }, 10000)
+  },
+  methods: {
+    onclickStopTimer () {
+      clearInterval(this.timer)
+    },
+    onclickSetCFO () {
+      if (this.inputStr !== '') {
+        FR.setCFO(this.inputStr)
+        console.log(this.inputStr)
+      } else {
+        alert('inputStr is null')
+      }
+    },
+    onclickGetCFO () {
+      var ss = FR.getCFO()
+      alert(ss)
+    },
+    onclickCreateSchedule () {
+      this.createSchedule()
+      // if (this.inputStr !== '') {
+      //   createSchedule(parseInt(this.inputStr))
+      // } else {
+      //   alert('input is empty')
+      // }
+    },
+    onclickGetBetByIndex () {
+      var _pm = 1
+      if (this.inputStr !== '') {
+        _pm = this.inputStr
+      }
+      var ss = FR.getBetByIndex(_pm)
+      console.log('bet:' + ss)
+    },
+    onclickGetScheduleByIndex () {
+      var _pm = 1
+      if (this.inputStr !== '') {
+        _pm = this.inputStr
+      }
+      var ss = FR.getScheduleByIndex(_pm)
+      alert('Sch: ' + ss)
+    },
+
+    onclickDispatch () {
+      // 写入本期赢家金额
+      var i = 9
+      while (i > 0) {
+        i--
+        if (i === 5) {
+          break
+        }
+
+        console.log('test:', i)
+      }
+      // dispatch()
+      // alert(ss)
+    },
+
+    onclickCreateScheduleWinner () {
+      FR.createScheduleWinner()
+      // alert(ss)
+    },
+    onclickGetContractAddr () {
+      var ss = FR.FreeRegion.getContractAddr.call()
+      alert(ss)
+    },
+
+    // 检查metamask是否有登录
+    checkMetamask () {
+      var res = false
+      // Check for injected web3 (mist/metamask)
+      var web3js = window.web3
+      if (typeof web3js !== 'undefined') {
+        // web3 = new Web3(web3js.currentProvider)
+        // web3js.version.network === '1' //为主网
+
+        // var _network = web3js.version.network
+        // var _coinbase = web3js.eth.coinbase
+        // var _cfo = getCFO()
+
+        if (web3js.eth.coinbase == null) {
+          alert('您还没有运行登录metamask')
+        } else {
+          this.myAddress = web3js.eth.defaultAccount
+          res = true
+          // alert('web3j:' + typeof web3js + ' network: ' + _network + ' coinbase:' + _coinbase + ' cfo:' + _cfo)
+        }
+      } else {
+        alert('您还没有安装matemask插件')
+      }
+      return res
+    },
+    checkValidSchedule () {
+      var res = true
+      if (this.curBlock === 0 || this.curBlock > FR.getScheduleByIndex(this.validSchedule)[6]) {
+        res = false
+        alert('当前期号：' + this.validSchedule + '  区块: ' + this.curBlock + '已关闭')
+      }
+      return res
+    },
+    onclickBetMax () {
+      if (this.checkMetamask() && this.checkValidSchedule()) {
+        var _this = this
+        if (_this.validSchedule > 0) {
+          if (_this.inputStr !== '') {
+            _this.betAmount = _this.inputStr
+            console.log('input betAmount: ' + _this.betAmount)
+          }
+          var web3js = window.web3
+          var _CFO = FR.getCFO()
+          web3js.eth.sendTransaction({
+            from: _this.myAddress,
+            to: _CFO,
+            value: web3js.toWei(_this.betAmount, 'ether')
+          }, function (err, transactionHash) {
+            if (!err) {
+              FR.createBet(_this.myAddress, _this.validSchedule, _this.betMax, _this.betAmount)
+              console.log(transactionHash)
+            } else {
+              alert(err)
+            }
+          })
+        }
+      }
+    },
+    createBet () {
+      FR.createBet(this.myAddress, this.validSchedule + 1, 10001, 11)
+    },
+    createSchedule () {
+      // var _this = this
+      // FR.FreeRegion.createSchedule.sendTransaction({from: '0xeaa5411691c8588368fed58443b28592dafba902', gas: 3000000},
+      //   function (err, res) {
+      //     if (!err) {
+      //       console.log(' createSchedule: ' + res)
+      //       _this.nonce1 = ''
+      //       _this.nonce2 = ''
+      //       _this.nonce3 = ''
+      //     } else {
+      //       alert('err! ' + err)
+      //     }
+      //   })
+      FR.FreeRegion.exCreateSchedule.call()
+    },
+    onclickBetMin () {
+      if (this.checkMetamask() && this.checkValidSchedule()) {
+        var _this = this
+        if (_this.validSchedule > 0) {
+          if (_this.inputStr !== '') {
+            _this.betAmount = _this.inputStr
+            console.log('input betAmount: ' + _this.betAmount)
+          }
+          var web3js = window.web3
+          var _CFO = FR.getCFO()
+          web3js.eth.sendTransaction({
+            from: _this.myAddress,
+            to: _CFO,
+            value: web3js.toWei(_this.betAmount, 'ether')
+          }, function (err, transactionHash) {
+            if (!err) {
+              FR.createBet(_this.myAddress, _this.validSchedule, _this.betMin, _this.betAmount)
+              console.log(transactionHash)
+            } else {
+              alert(err)
+            }
+          })
+        }
+      }
+    },
+    // table
+    rowClick (rowIndex, rowData, column) {
+      if (this.checkMetamask()) {
+        if (column.field === 'isget' && rowData.winA > 0 && rowData.isget === false) {
+          FR.FreeRegion.transfer.sendTransaction(rowData.addr, rowData.winA, {from: '0xeaa5411691c8588368fed58443b28592dafba902', gas: 3000000},
+            function (err, res) {
+              if (!err) {
+                // console.log('index: ' + rowIndex + ' rowData: ' + rowData.id + ' column: ' + column.title + rowData.addr)
+                FR.FreeRegion.updataBetStatus.sendTransaction(parseInt(rowData.id), parseInt(rowData.schedule), true, {from: '0xeaa5411691c8588368fed58443b28592dafba902', gas: 3000000},
+                  function (err, res) {
+                    if (!err) {
+                      console.log('transfer: ' + res)
+                      rowData.isget = true
+                    } else {
+                      alert('err! ' + err)
+                    }
+                  })
+              } else {
+                alert('err! ' + err)
+              }
+            })
+        }
+      }
+    },
+
+    columnCellClass (rowIndex, columnName, rowData) {
+      if (rowData.isget === true) {
+        rowData.isget = ''
+      }
+      if (columnName === 'isget' && rowData.winA > 0 && rowData.isget === false) {
+        return 'bets-isget-false'
+      }
+      if (rowData.winA > 0 && columnName === 'winA') {
+        return 'bets-winA-GreaterThanZero'
+      }
+    },
+    getTime () {
+      var ss = FR.FreeRegion.getTime.call()
+      var _schedule = parseInt(ss[0])
+      var _isAction = ss[2]
+      this.nonce1 = ss[3].toString()
+
+      console.log('getTime sch: ' + _schedule + ' status: ' + _isAction + ' pending: ' + this.isPending + ' setlement: ' + this.settlementStart)
+      if (_isAction === false && this.isPending === false) {
+        this.isPending = true
+        var _this = this
+        // var _random = Math.floor(Math.random() * 9999) + 1999 // 从1999到9999间产生随机数
+        var _nonce1 = parseInt(this.nonce1)
+        var _nonce2 = parseInt(FR.FreeRegion.getNonce.call(_nonce1))
+        var _nonce3 = parseInt(FR.FreeRegion.getNonce.call(_nonce2))
+
+        var _winNonce = _nonce1 + _nonce2 + _nonce3 + 3
+        console.log('winNoce' + _winNonce + ' nonce1: ' + _nonce1 + ' nonce2: ' + _nonce2 + ' nonce3: ' + _nonce3)
+
+        // 随机数大于16 (17-30)为开大反之开小
+        if (_winNonce > 16) {
+          let max = FR.FreeRegion.getCandidate.call(1)
+          // 返回值1为类型为为 1为正常结算 0为无对手盘 返回值2 为对应类型的发生金额（类型0为退还投注金额）
+          FR.FreeRegion.createScheduleWinner.sendTransaction(_schedule, parseInt(max[0]), _nonce1, _nonce2, _nonce3, {
+            from: '0xeaa5411691c8588368fed58443b28592dafba902',
+            gas: 3000000
+          }, function (err, res) {
+            if (!err) {
+              _this.nonce1 = _nonce1.toString()
+              _this.$refs.revolve_nonce2.action_start()
+              setTimeout(() => {
+                _this.nonce2 = _this.$refs.revolve_nonce2.action_stop(_this.$refs.revolve_nonce2.getItemIndex(_nonce2))
+                _this.$refs.revolve_nonce3.action_start()
+                // _this.nonce2 = _nonce2.toString()
+                setTimeout(() => {
+                  _this.nonce3 = _this.$refs.revolve_nonce3.action_stop(_this.$refs.revolve_nonce3.getItemIndex(_nonce3))
+                  // _this.nonce3 = _nonce3.toString()
+                }, 3000)
+              }, 3000)
+
+              // _this.nonce2 = _nonce2.toString()
+              // _this.nonce3 = _nonce3.toString()
+              console.log(_nonce3 + 'createScheduleWinner MaxSCH:' + _schedule + ' Nonce: ' + _winNonce + ' res: ' + res + ' pending: ' + _this.isPending)
+            } else {
+              alert('Maxerr! ' + err)
+            }
+          })
+        } else {
+          var min = FR.FreeRegion.getCandidate.call(0)
+          // 返回值1为类型为为 1为正常结算 0为无对手盘 返回值2 为对应类型的发生金额（类型0为退还投注金额）
+          FR.FreeRegion.createScheduleWinner.sendTransaction(_schedule, parseInt(min[0]), _nonce1, _nonce2, _nonce3, {
+            from: '0xeaa5411691c8588368fed58443b28592dafba902',
+            gas: 3000000
+          }, function (err, res) {
+            if (!err) {
+              _this.nonce1 = _nonce1.toString()
+              _this.$refs.revolve_nonce2.action_start()
+              setTimeout(() => {
+                _this.nonce2 = _this.$refs.revolve_nonce2.action_stop(_this.$refs.revolve_nonce2.getItemIndex(_nonce2))
+                _this.$refs.revolve_nonce3.action_start()
+                // _this.nonce2 = _nonce2.toString()
+                setTimeout(() => {
+                  _this.nonce3 = _this.$refs.revolve_nonce3.action_stop(_this.$refs.revolve_nonce3.getItemIndex(_nonce3))
+                  // _this.nonce3 = _nonce3.toString()
+                }, 3000)
+              }, 3000)
+              console.log(_nonce2 + 'createScheduleWinner MinSCH:' + _schedule + ' Nonce: ' + _winNonce + ' res: ' + res + ' pending: ' + _this.isPending)
+            } else {
+              alert('Minerr! ' + err)
+            }
+          })
+        }
+        _this.createSchedule()
+      }
+      return ss
+    },
+
+    remove: function (index) {
+      this.users.splice(index, 1)
+    }
+  },
+  onclickStopTimer () {
+    clearInterval(this.timer)
+  },
+  // 钩子函数 组件结束前执行
+  beforeDestroy () {
+    if (this.timer) {
+      clearInterval(this.timer)
+      console.log('i am go out')
+    }
+  }
+}
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style>
+  .button {
+    font-family: h;
+    text-align: center;
+    background-color:cornflowerblue;
+    color: white;
+  }
+  .baseClass{
+    margin-top: 19px;
+    margin-bottom: 19px;
+  }
+  .column_cell{
+       background-color: #2db7f5;
+       font-size:7px;
+  }
+  .column-cell-class-name-isget{
+    background-color: #2db7f5;
+    font-weight: bold;
+  }
+  .bets-winA-GreaterThanZero{
+    font-size: 27px;
+    color: darkorange;
+  }
+  .bets-isget-false{
+    background-color: darkorange;
+    color: white;
+    font-weight: bold;
+  }
+</style>
