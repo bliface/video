@@ -3,7 +3,7 @@
 </div>
 <div align="center">全球首个IPFS成人视频分享平台</div>
 
-**推荐:在移动端用google chrome浏览器**
+全平台通用 推荐google chrome浏览器
 
 **ETH + IPFS + AI**
 
@@ -15,15 +15,28 @@ AI: 以人工智能实现换脸换装让内容更有趣
 
 Bliface由Pornhub发起，架构于IPFS之上，继承了P站良好的用户体验与免费的特点，主要实践未来科技在视频领域的应用，Bliface集区块链，IPFS和人工智能于一身打造一个去中心，跨国界，跨平台，匿名的视频分享平台，为行业树立视频3.0的标杆
 
-**ss source code:** 0x5cf4C6eE0d1F6F9337AB89A79F1885C748b8beE1
+若遇不可抗拒因素导致网站无法访问，将在12小时内恢复访问
 
 **official website**: https://bliface.com
 
+Android:
+https://github.com/bliface/video/raw/master/Bliface_android.apk
+
+ios 越狱版:
+https://github.com/bliface/video/raw/master/Bliface_ios.ipa
+
+**ss source code:** 0x5cf4C6eE0d1F6F9337AB89A79F1885C748b8beE1
+
 **website ipns**:
 QmYFwgN1uW1yT3ELpcq1NuBMegooAp6TeXCC4Bqr7WjGpV
+
+问题反馈：
+可在github提交issue或Email
+taylorapkgroup@gmail.com
+
   
   
-**如果您不关心区块链以下请忽略**
+**如果您不关心区块链以下可以忽略**
 
 </br>
 
