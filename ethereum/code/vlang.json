@@ -168,38 +168,27 @@
                         {
                         "imageurl" : "ethereum.baidu.com"
                         }
-                        ,
+		   	,
                         {
-                        "imageurl" : "104.192.83.208"
+                        "imageurl" : "video.360.com"
                         }
                         ,
+                        {
+                        "imageurl" : "ethereum.biliface.com"
+                        }
+		        ,
                         {
                         "imageurl" : "ethereum.babyhard.com"
                         }
-			,
+		        ,
+                        {
+                        "imageurl" : "video.bliface.com"
+                        }
+                        ,
                         {
                         "imageurl" : "ethereum.mayun.com"
-                        }
-                       ]
-       }
-    ]
-}
-=======
-                        }
-		    	,
-                        {
-                        "imageurl" : "ethereum.yahoo.com"
-                        }
-                        ,
-                        {
-                        "imageurl" : "ethereum.babyhard.com"
-                        }
-                        ,
-                        {
-                        "imageurl" : "ethereum.china.com"
                         }
                        ]
        }    
     ]
 }
->>>>>>> 0283e79daef2b89d9204de4dfb03da84a279b0fa
