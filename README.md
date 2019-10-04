@@ -1,5 +1,5 @@
 <div align="center">
-    <img src="https://github.com/babyhard/video/raw/master/static/image/logo-45.png" width="45" height="45">    
+    <img src="https://github.com/babyhard/video/raw/master/static/image/logo-90.png" width="45" height="45">    
 </div>
 <div align="center">全球首个IPFS成人视频分享平台</div>
 
