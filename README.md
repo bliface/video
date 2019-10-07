@@ -1,5 +1,5 @@
 <div align="center">
-    <img src="https://github.com/babyhard/video/raw/master/static/image/logo-90.png" width="45" height="45">    
+    <img src="https://github.com/babyhard/video/raw/master/static/image/logo-45.png" width="45" height="45">    
 </div>
 <div align="center">全球首个IPFS成人视频分享平台</div>
 
@@ -31,7 +31,7 @@ https://github.com/bliface/video/raw/master/Bliface_ios.ipa
 QmYFwgN1uW1yT3ELpcq1NuBMegooAp6TeXCC4Bqr7WjGpV
 
 问题反馈：
-可在github提交issue或Email
+可在应用内提交issue或Email
 taylorapkgroup@gmail.com
 
   
