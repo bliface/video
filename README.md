@@ -21,10 +21,10 @@ Bliface由Pornhub发起，架构于IPFS之上，继承了P站良好的用户体�
 
 **ss source code:** 0x5cf4C6eE0d1F6F9337AB89A79F1885C748b8beE1
 
-**ipfs hash**:
-Qmdd9L4QuBxDaFyY8H6DaW1y3agmd9SfXKDxovFe1ViZeM
+**website ipfs hash**:
+QmRqp9JpE7YhyFxzb75b7s97H2GMme3i4YxLDZpxQKuvxa
 
-任意IPFS网关加hash即可访问
+任意IPFS网关加website ipfs hash即可访问
 
 问题反馈：
 可在应用内提交issue或Email
