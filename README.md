@@ -13,17 +13,17 @@ IPFS: 星际文件用于存储视频图片等平台资源
 
 AI: 以人工智能实现换脸换装让内容更有趣
 
-Bliface由Pornhub发起，架构于IPFS之上，继承P站良好的用户体验与免费的特点，主要实践未来科技在视频领域的应用，Bliface集区块链，IPFS和人工智能于一身打造一个去中心，跨国界，跨平台，匿名的视频分享平台，为行业树立视频3.0的标杆
+Bliface由Pornhub发起，架构于IPFS之上，继承P站良好的用户体验与免费的特点，主要实践未来科技在视频领域的应用，Bliface集区块链，IPFS和人工智能于一身打造一个去中心，跨国界，跨平台，抗审查，匿名的视频分享平台，让每个人都可以平等地接受网络信息，为行业树立视频3.0的标杆
 
 **ss source code:** 0x5cf4C6eE0d1F6F9337AB89A79F1885C748b8beE1
 
 **official website**: https://bliface.com
 
 **website ipfs**:
-Qmb5vPijRPmVDyewP2ddh7AAEnyqxZYniZxPyrYaXZGHxo
+QmPoDBjLx6bRASrJhkho1Jm9mCMXzp8wx5paLHqKsxcuhk
   
   
-**如果您不关心区块链以下请忽略**
+**如果您不关心数字货币以下请忽略**
 
 </br>
 
